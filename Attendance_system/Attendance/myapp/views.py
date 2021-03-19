@@ -151,7 +151,7 @@ def register_teacher(request):
 
 
 @csrf_exempt
-def admin_add_student(request, *args, **kwargs):
+def admin_add_student(request):
 
     if request.method == 'POST':
         name = request.POST.get('name')
