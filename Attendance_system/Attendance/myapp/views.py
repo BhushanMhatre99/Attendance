@@ -98,18 +98,21 @@ def validate_login(request):
         cursor.execute(query)
         result = cursor.fetchone()
         login_falied = 1
-        if result[2]==username and result[3]==password:
-            request.session['is_logged'] = username
-            if result[4]=='admin':
-                return HttpResponseRedirect("/admin_view/")
-            elif result[4]=='teacher':
-                return HttpResponseRedirect("/teacher_view/")
-            elif result[4]=='student':
-                return HttpResponseRedirect("/add_student/")
+        if result is None:
+            return render_to_response("login.html", {'login_falied': login_falied})
+        else:
+            if result[2]==username and result[3]==password:
+                request.session['is_logged'] = username
+                if result[4]=='admin':
+                    return HttpResponseRedirect("/admin_view/")
+                elif result[4]=='teacher':
+                    return HttpResponseRedirect("/teacher_view/")
+                elif result[4]=='student':
+                    return HttpResponseRedirect("/add_student/")
+                else:
+                    return render_to_response("login.html",{'login_falied': login_falied})
             else:
                 return render_to_response("login.html",{'login_falied': login_falied})
-        else:
-            return render_to_response("login.html",{'login_falied': login_falied})
 
     else:
         return HttpResponseRedirect("/login/")
@@ -145,14 +148,13 @@ def register_teacher(request):
                 user_already_exist = 1
                 return render_to_response('admin_view.html',{'user_already_exist' : user_already_exist})
 
-    registred_successfully = 1
-    return render_to_response('admin_view.html',{'registred_successfully' : registred_successfully})
+    registered_successfully = 1
+    return render_to_response('admin_view.html',{'registered_successfully' : registered_successfully})
 
 
 
 @csrf_exempt
 def admin_add_student(request):
-
     if request.method == 'POST':
         name = request.POST.get('name')
         address = request.POST.get('address')
@@ -176,12 +178,11 @@ def admin_add_student(request):
             cursor.execute(sql)
 
         else:
+            user_already_exist = 1
+            return render_to_response("add_student.html",{'user_already_exist' : user_already_exist})
 
-            return render_to_response("add_student.html")
-
-
-
-    return render_to_response("login.html")
+    registered_successfully = 1
+    return render_to_response("add_student.html",{'registered_successfully' : registered_successfully})
 
 
 

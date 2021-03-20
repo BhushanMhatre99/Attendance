@@ -63,6 +63,19 @@
 
   <!-- Container -->
   <!-- page Content-->
+  {% if user_already_exist == 1 %}
+    <div class="alert alert-danger alert-dismissible col-md-8" style="margin-left:450px;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+        <center>User Already Registered  </center>
+    </div>
+
+  {% endif %}
+  {% if registered_successfully == 1 %}
+    <div class="alert alert-success alert-dismissable col-md-8" style="margin-left:450px;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+        <center>User Registered Successfully</center>
+    </div>
+  {% endif %}
 <div class="container" style="margin-right: 230px;">
     <div class="row justify-content-center ">
         <div class="col-lg-11 col-xl-7">

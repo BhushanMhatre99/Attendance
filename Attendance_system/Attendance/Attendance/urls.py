@@ -20,15 +20,15 @@ from myapp.views import login,admin_view,add_teacher,validate_login,register_tea
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/',login),
-    url('admin_view/',admin_view),
-    url('add_teacher/',add_teacher),
-    url('validate_login/',validate_login),
-    url('register_teacher/',register_teacher),
-    url('add_student/',add_student),
-    url('admin_add_student',admin_add_student),
-    url('view_teacher/',view_teacher),
-    url('view_student/',view_student),
-    url('teacher_view/',teacher_view),
-    url('logout/',logout)
+    url(r'^admin_view/',admin_view),
+    url(r'^add_teacher/',add_teacher),
+    url(r'^validate_login/',validate_login),
+    url(r'^register_teacher/',register_teacher),
+    url(r'^add_student/',add_student),
+    url(r'^admin_add_student/',admin_add_student),
+    url(r'^view_teacher/',view_teacher),
+    url(r'^view_student/',view_student),
+    url(r'^teacher_view/',teacher_view),
+    url(r'^logout/',logout)
 
 ]
