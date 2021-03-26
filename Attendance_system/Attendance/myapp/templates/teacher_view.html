@@ -48,8 +48,8 @@
 
       <nav class="nav-menu">
         <ul>
-          <li class="active"><a href="/views/teacher_view/"><i class="bx bx-home"></i> <span>Attendance</span></a></li>
-          <li><a href="/views/add_student/"><i class="bx bx-user"></i> <span>View Student</span></a></li>
+          <li class="active"><a href="/teacher_view/"><i class="bx bx-home"></i> <span>Attendance</span></a></li>
+          <li><a href="/add_student/"><i class="bx bx-user"></i> <span>View Student</span></a></li>
           <li><a href="/login/"><i class="bx bx-file-blank"></i> <span>Logout</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -64,8 +64,15 @@
     <div class="row justify-content-center ">
         <div class="col-lg-12">
             <section class="py-4 py-lg-5">
-                <h1 class="display-4 mb-3 text-center" style="color: #f768a1;">View Teacher</h1>
-                    <table class="table table-striped table-bordered" id="example" >
+                <h1 class="display-4 mb-3 text-center" style="color: #f768a1;">Attendance</h1>
+                <form action="/attendance/" method="post">
+                   <div class="form-group row mt-4" style="margin-left:260px;">
+                        <label class="col-sm-2 col-form-label text-dark ml-1">Select Date</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" name="present_date" placeholder="... " type="date">
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered" id="example" style="margin-top:30px;" >
                       <thead>
                         <tr>
                           <td>Name</td>
@@ -73,15 +80,26 @@
                           <td>Present</td>
                         </tr>
                       </thead>
+                    {% for items in teachers %}
+                      <tr>
+                        <td>{{items.name}}</td>
+                        <td>{{items.class_div}}</td>
+                        <td><input type="checkbox" name="present_{{items.id}}"></td>
+                      </tr>
+                      {% endfor %}
 
                     </table>
+                  <div class="row justify-content-md-center col-sm-9 mt-5" style="margin-left:20px;">
+                        <button class="btn btn-md btn-outline-info" type="submit">Submit
+                        </button>
+                    </div>
               <script>
 
                 $('#example').DataTable();
 
               </script>
 
-
+                </form>
             </section>
         </div>
     </div>

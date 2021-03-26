@@ -30,19 +30,38 @@ def admin_view(request):
 
 def teacher_view(request):
 
+    if request.session.has_key('is_logged'):
+        username = request.session['is_logged']
+
+        cursor = connection.cursor()
+
+        query = "SELECT name FROM user where username = '"+username+"'"
+        cursor.execute(query)
+        result = cursor.fetchone()[0]
+
+        a = "SELECT name,class_div,id FROM user where class_teacher = '"+result+"' "
+        cursor.execute(a)
+        res = cursor.fetchall()
 
 
-    
+        teachers = []
+        for teacher in res:
+            attendance = {"name" : teacher[0],"class_div" : teacher[1],'id':teacher[2]}
+            teachers.append(attendance)
 
-    return render_to_response("teacher_view.html")
+    return render_to_response("teacher_view.html",{'teachers' : teachers})
 
 def add_teacher(request):
-    return render_to_response("admin_view.html")
+    logged = 1
+    if request.session.has_key('is_logged'):
+        return render_to_response("admin_view.html")
+    else:
+        return render_to_response("login.html",{'logged' : logged})
 
 def add_student(request):
     cursor = connection.cursor()
 
-    query = "SELECT name FROM user WHERE type = 'teacher' "
+    query = "SELECT name,id FROM user WHERE type = 'teacher' "
     cursor.execute(query)
     res = cursor.fetchall()
     teacher_list = []
@@ -155,34 +174,63 @@ def register_teacher(request):
 
 @csrf_exempt
 def admin_add_student(request):
+    if request.session.has_key('is_logged'):
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            address = request.POST.get('address')
+            mobile = request.POST.get('mobile')
+            dob = request.POST.get('dob')
+            gender = request.POST.get('gender')
+            email = request.POST.get('email')
+            class_div = request.POST.get('class_div')
+            class_teacher = request.POST.get('class_teacher')
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            cursor = connection.cursor()
+
+            query = "SELECT username from user where username='"+username+"'"
+            cursor.execute(query)
+            res = cursor.rowcount
+            if res == 0:
+
+                sql = "insert into user (name,address,mobile,dob,gender,email,class_div,username,password,class_teacher,type) values ('"+name+"','"+address+"','"+mobile+"','"+dob+"','"+gender+"','"+email+"','"+class_div+"','"+username+"','"+password+"','"+class_teacher+"','student')"
+                cursor.execute(sql)
+
+            else:
+                user_already_exist = 1
+                return HttpResponseRedirect('/add_student/',{'user_already_exist' : user_already_exist})
+
+        registered_successfully = 1
+        return render_to_response("add_student.html",{'registered_successfully' : registered_successfully})
+
+
+
+def attendance(request):
+
     if request.method == 'POST':
-        name = request.POST.get('name')
-        address = request.POST.get('address')
-        mobile = request.POST.get('mobile')
-        dob = request.POST.get('dob')
-        gender = request.POST.get('gender')
-        email = request.POST.get('email')
-        class_div = request.POST.get('class_div')
-        class_teacher = request.POST.get('class_teacher')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        name = request.POST.get('present')
+        if request.session.has_key('is_logged'):
+            username = request.session['is_logged']
 
-        cursor = connection.cursor()
+            cursor = connection.cursor()
 
-        query = "SELECT username from user where username='"+username+"'"
-        cursor.execute(query)
-        res = cursor.rowcount
-        if res == 0:
+            query = "SELECT name FROM user where username = '" + username + "'"
+            cursor.execute(query)
+            result = cursor.fetchone()[0]
 
-            sql = "insert into user (name,address,mobile,dob,gender,email,class_div,username,password,class_teacher,type) values ('"+name+"','"+address+"','"+mobile+"','"+dob+"','"+gender+"','"+email+"','"+class_div+"','"+username+"','"+password+"','"+class_teacher+"','student')"
-            cursor.execute(sql)
+            a = "SELECT name,class_div,id FROM user where class_teacher = '" + result + "' "
+            cursor.execute(a)
+            res = cursor.fetchall()
 
-        else:
-            user_already_exist = 1
-            return render_to_response("add_student.html",{'user_already_exist' : user_already_exist})
+            teachers = []
+            for teacher in res:
+                attendance = {"name": teacher[0], "class_div": teacher[1], 'id': teacher[2]}
+                teachers.append(attendance)
 
-    registered_successfully = 1
-    return render_to_response("add_student.html",{'registered_successfully' : registered_successfully})
+                print(attendance,request.POST.get('present_'+str(teacher[2])))
+                sql = "INSERT INTO present(name"
+    return render_to_response("teacher_view.html")
 
 
 
