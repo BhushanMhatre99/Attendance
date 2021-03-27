@@ -46,11 +46,13 @@
     <div class="d-flex flex-column">
         <p class="navbar-brand">Automatic Attendance System</p>
 
-      <nav class="nav-menu">
+      <img class="img-fluid rounded-circle mx-auto" style="margin-top:40px; width:200px;" src="{% static "/img/logo.png" %}"  />
+
+      <nav class="nav-menu" style="margin-top:50px;">
         <ul>
-          <li class="active"><a href="/teacher_view/"><i class="bx bx-home"></i> <span>Attendance</span></a></li>
-          <li><a href="/add_student/"><i class="bx bx-user"></i> <span>View Student</span></a></li>
-          <li><a href="/login/"><i class="bx bx-file-blank"></i> <span>Logout</span></a></li>
+          <li class="active"><a href="/teacher_view/"><i class="bx bx-task"></i> <span>Attendance</span></a></li>
+          <li><a href="/add_student/"><i class="bx bx-spreadsheet"></i> <span>View Student</span></a></li>
+          <li><a href="/login/"><i class="bx bx-log-out"></i> <span>Logout</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
       <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
@@ -69,7 +71,7 @@
                    <div class="form-group row mt-4" style="margin-left:260px;">
                         <label class="col-sm-2 col-form-label text-dark ml-1">Select Date</label>
                         <div class="col-sm-4">
-                            <input class="form-control" name="present_date" placeholder="... " type="date">
+                            <input class="form-control" name="present_date" placeholder="... " type="date" required>
                         </div>
                     </div>
                     <table class="table table-striped table-bordered" id="example" style="margin-top:30px;" >

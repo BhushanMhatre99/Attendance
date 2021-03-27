@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from myapp.views import login,admin_view,add_teacher,validate_login,register_teacher,add_student,admin_add_student,view_teacher,view_student,teacher_view,logout,attendance
+from myapp.views import login,admin_view,add_teacher,validate_login,register_teacher,add_student,admin_add_student,view_teacher,view_student,teacher_view,logout,attendance,view_attendance
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^view_student/',view_student),
     url(r'^teacher_view/',teacher_view),
     url(r'^logout/',logout),
-    url(r'^attendance/',attendance)
+    url(r'^attendance/',attendance),
+    url(r'^view_attendance/',view_attendance)
 
 ]

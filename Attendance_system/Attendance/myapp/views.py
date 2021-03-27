@@ -189,6 +189,17 @@ def admin_add_student(request):
 
             cursor = connection.cursor()
 
+
+
+            query_sql = "SELECT name,id FROM user WHERE type = 'teacher' "
+            cursor.execute(query_sql)
+            res = cursor.fetchall()
+            teacher_list = []
+            for teacher in res:
+                teacher_list.append(teacher[0])
+
+
+
             query = "SELECT username from user where username='"+username+"'"
             cursor.execute(query)
             res = cursor.rowcount
@@ -199,17 +210,16 @@ def admin_add_student(request):
 
             else:
                 user_already_exist = 1
-                return HttpResponseRedirect('/add_student/',{'user_already_exist' : user_already_exist})
+                return render_to_response('add_student.html',{'user_already_exist' : user_already_exist,'result': teacher_list})
 
         registered_successfully = 1
-        return render_to_response("add_student.html",{'registered_successfully' : registered_successfully})
+        return render_to_response("add_student.html",{'registered_successfully' : registered_successfully,'result': teacher_list})
 
 
 
 def attendance(request):
 
     if request.method == 'POST':
-        name = request.POST.get('present')
         if request.session.has_key('is_logged'):
             username = request.session['is_logged']
 
@@ -227,10 +237,33 @@ def attendance(request):
             for teacher in res:
                 attendance = {"name": teacher[0], "class_div": teacher[1], 'id': teacher[2]}
                 teachers.append(attendance)
+                print(teachers)
 
-                print(attendance,request.POST.get('present_'+str(teacher[2])))
-                sql = "INSERT INTO present(name"
+                bhushan = (attendance,request.POST.get('present_'+str(teacher[2])))
+                print(bhushan)
+
+                name = request.POST.get('present_date')
+
+                sql = "INSERT INTO present (user_id) VALUES ('"+bhushan[2]+"')"
+                cursor.execute(sql)
     return render_to_response("teacher_view.html")
+
+
+def view_attendance(request):
+
+    cursor = connection.cursor()
+
+    query = "select name,is_present from user as u,present as p where u.id=p.user_id"
+    cursor.execute(query)
+    res = cursor.fetchall()
+    attendance_list = []
+    for student in res:
+        attendance_info = {"id": student[0], "is_present": student[1]}
+        attendance_list.append(attendance_info)
+
+    return render_to_response("view_attendance.html", {'attendance_list': attendance_list})
+
+
 
 
 
