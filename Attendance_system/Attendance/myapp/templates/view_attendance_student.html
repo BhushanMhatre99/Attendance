@@ -62,7 +62,7 @@
 
   <!-- Container -->
   <!-- page Content-->
-<div class="container" style="margin-right: 230px;">
+<div class="container" style="margin-right: 150px;">
     <div class="row justify-content-center ">
         <div class="col-lg-12">
             <section class="py-4 py-lg-5">
@@ -79,7 +79,9 @@
                     {% for items in students %}
                       <tr>
                         <td>{{items.class_teacher}}</td>
-                        <td>{{items.is_present}}</td>
+                        <td>{% if items.is_present == 1 %}Present
+                            {% else %}Absent
+                            {% endif %}</td>
                         <td>{{items.date}}</td>
                       </tr>
                       {% endfor %}

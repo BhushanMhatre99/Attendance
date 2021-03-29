@@ -47,7 +47,7 @@
         <p class="navbar-brand">Automatic Attendance System</p>
         <img class="img-fluid rounded-circle mx-auto" style="margin-top:40px; width:200px;" src="{% static "/img/logo.png" %}"  />
 
-      <nav class="nav-menu" style="margin-top:50px;">
+      <nav class="nav-menu" style="margin-top:20px;">
         <ul>
           <li><a href="/add_teacher/"><i class="bx bx-user-plus"></i> <span>Add Teacher</span></a></li>
           <li class="active"><a href="/add_student/"><i class="bx bx-user"></i> <span>Add Student</span></a></li>
@@ -77,8 +77,9 @@
         <center>User Registered Successfully</center>
     </div>
   {% endif %}
-<div class="container" style="margin-right: 230px;">
+<div class="container">
     <div class="row justify-content-center ">
+        <div class="col-4"></div>
         <div class="col-lg-11 col-xl-7">
             <section class="py-4 py-lg-5">
                 <h1 class="display-4 mb-3 text-center" style="color: #f768a1;">Add Student</h1>
@@ -86,25 +87,25 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-2 col-form-label text-dark ml-1">Name</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="name" placeholder="Enter Name ... " type="text">
+                            <input class="form-control" name="name" placeholder="Enter Name ... " type="text" required>
                         </div>
                     </div>
                      <div class="form-group row mt-4">
                         <label class="col-sm-2 col-form-label text-dark ml-1">Address</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="address" placeholder="Enter Address... " type="text">
+                            <input class="form-control" name="address" placeholder="Enter Address... " type="text" required>
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-2 col-form-label text-dark ml-1">Mobile Number</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="mobile" placeholder="Enter mobile number... " type="number">
+                            <input class="form-control" name="mobile" placeholder="Enter mobile number... " type="number" required>
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-2 col-form-label text-dark ml-1">DOB</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="dob" placeholder="Enter Date of Birth... " type="date">
+                            <input class="form-control" name="dob" placeholder="Enter Date of Birth... " type="date" required>
                         </div>
                     </div>
                     <div class="form-group row mt-4">
@@ -120,13 +121,13 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-2 col-form-label text-dark ml-1">Email</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="email" placeholder="Enter Email... " type="email">
+                            <input class="form-control" name="email" placeholder="Enter Email... " type="email" required>
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-2 col-form-label text dark ml-1">Class</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="class_div" placeholder="Enter Class..." type="text">
+                            <input class="form-control" name="class_div" placeholder="Enter Class..." type="text" required>
                         </div>
                     </div>
                     <div class="form-group row mt-4">
@@ -142,13 +143,13 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-2 col-form-label text-dark ml-1">Username</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="username" placeholder="Enter Username... " type="text">
+                            <input class="form-control" name="username" placeholder="Enter Username... " type="text" required>
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-2 col-form-label text-dark ml-1">Password</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="password" placeholder="Enter Password... " type="password">
+                            <input class="form-control" name="password" placeholder="Enter Password... " type="password" required>
                         </div>
                     </div>
                     <div class="row justify-content-md-center col-sm-9 mt-5" style="margin-left:20px;">
