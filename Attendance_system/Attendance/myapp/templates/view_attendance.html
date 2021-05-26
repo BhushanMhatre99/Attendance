@@ -114,9 +114,18 @@
 
 
             </section>
+            {% if class_teacher %}
+            <form action="/export_attendance/" method="post">
+                <input type="hidden" name="class_teacher" value="{{class_teacher}}">
+                <button class="btn btn-md btn-outline-info" type="submit">Export
+                </button>
+            </form>
+            {% endif %}
         </div>
     </div>
 </div>
+
+
 
 
   <!-- ======= Footer ======= -->

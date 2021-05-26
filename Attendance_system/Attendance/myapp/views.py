@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.contrib.sessions.models import Session
 from django.contrib import messages
+import csv
 
 # Create your views here.
 
@@ -320,7 +321,45 @@ def view_attend(request):
         attendance_info = {"id": student[0], "name": student[1], "is_present": student[2]}
         attendance_list.append(attendance_info)
 
-    return render_to_response("view_attendance.html", {'attendance_list': attendance_list,'result': teacher_list})
+    return render_to_response("view_attendance.html", {'attendance_list': attendance_list,'result': teacher_list,'class_teacher':username1})
+
+def export_attendance(request):
+    username1 = request.POST.get('class_teacher')
+    print(username1)
+
+    username = str(username1)
+    print(username)
+
+    cursor = connection.cursor()
+
+    query = "SELECT name,id FROM user WHERE type = 'teacher' "
+    cursor.execute(query)
+    res = cursor.fetchall()
+    teacher_list = []
+    for teacher in res:
+        teacher_list.append(teacher[0])
+
+    a = "select p.user_id,u.name,SUM(p.is_present) from user as u,present as p where class_teacher = '" + username + "' and u.id=p.user_id GROUP BY p.user_id"
+    cursor.execute(a)
+    res = cursor.fetchall()
+    print(res)
+    attendance_list = []
+    f = open("./myapp/static/Attendance_Report.csv", "w")
+    f.write("ID,Student_Name,Attendance\n")
+
+    for student in res:
+        attendance_info = {"id": student[0], "name": student[1], "is_present": student[2]}
+
+        #attendance_list.append(attendance_info)
+
+        f.write(str(student[0])+","+str(student[1])+","+str(student[2])+"\n")
+    f.close()
+
+
+    return redirect('/static/Attendance_Report.csv')
+
+
+
 
 def teacher_view_student(request):
     cursor = connection.cursor()
