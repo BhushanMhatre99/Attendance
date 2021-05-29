@@ -297,10 +297,10 @@ def view_attendance(request):
 def view_attend(request):
 
     username1 = request.POST.get('class_teacher')
-    print(username1)
+    #print(username1)
 
     username = str(username1)
-    print(username)
+   # print(username)
 
     cursor = connection.cursor()
 
@@ -325,10 +325,11 @@ def view_attend(request):
 
 def export_attendance(request):
     username1 = request.POST.get('class_teacher')
-    print(username1)
+    attendance_list = request.POST.get('attendance_list')
+    #print(username1)
 
     username = str(username1)
-    print(username)
+  #  print(username)
 
     cursor = connection.cursor()
 

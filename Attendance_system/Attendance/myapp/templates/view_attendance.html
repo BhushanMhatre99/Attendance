@@ -114,12 +114,15 @@
 
 
             </section>
-            {% if class_teacher %}
+            {% if class_teacher and attendance_list %}
+            <div style="margin-left:200px">
             <form action="/export_attendance/" method="post">
                 <input type="hidden" name="class_teacher" value="{{class_teacher}}">
+                <input type="hidden" name="attendance_list" value="{{attendance_list}}">
                 <button class="btn btn-md btn-outline-info" type="submit">Export
                 </button>
             </form>
+            </div>
             {% endif %}
         </div>
     </div>
