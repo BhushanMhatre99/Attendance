@@ -14,12 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.views.static import serve
 from django.contrib import admin
 from myapp.views import login,admin_view,add_teacher,validate_login,register_teacher,add_student,admin_add_student,view_teacher,view_student,teacher_view,student_view,logout,attendance,view_attendance,view_attend,teacher_view_student,view_attendance_student,export_attendance
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/',login),
+    url('',login),
     url(r'^admin_view/',admin_view),
     url(r'^add_teacher/',add_teacher),
     url(r'^validate_login/',validate_login),
@@ -36,6 +38,8 @@ urlpatterns = [
     url(r'^view_attend/',view_attend),
     url(r'^teacher_view_student/',teacher_view_student),
     url(r'^view_attendance_student/',view_attendance_student),
-    url(r'^export_attendance/',export_attendance)
+    url(r'^export_attendance/',export_attendance),
+    url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT})
 
 ]
