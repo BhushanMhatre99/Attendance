@@ -25,7 +25,7 @@ SECRET_KEY = '#*4xq%$xlym&!hpj1it0g(p6v__3tmnss)t3vxpqfq3exi))_-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','automated-attendence-system.herokuapp.com']
 
 
 # Application definition
